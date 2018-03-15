@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-/*public class Inventory : MonoBehaviour {
+public class Inventory : MonoBehaviour {
 
 	public Image[] guiItemImages;
 	private Dictionary<InventoryItem,int> items = new Dictionary<InventoryItem,int>();
@@ -69,4 +69,3 @@ using UnityEngine.UI;
 		}
 	}
 }
-*/
