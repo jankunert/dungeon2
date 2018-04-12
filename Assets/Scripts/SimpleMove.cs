@@ -7,6 +7,7 @@ public class SimpleMove : MonoBehaviour
 {
     public float speed = 5.0f;
     public float sprintingSpeed = 3.0f;
+    public float sneakSpeed = 2.0f;
     private bool sprinting=false;
     private bool sneaking = false;
     private float rotationChangingSpeed = 10000.0f;
@@ -23,6 +24,8 @@ public class SimpleMove : MonoBehaviour
     public float delay = 0;
     public float volume = 0.7f;
     public Text pauseText;
+    public Button resume;
+    public Button exit;
     public GameObject MainCamera;
     public GameObject gameController;
 
@@ -32,6 +35,8 @@ public class SimpleMove : MonoBehaviour
     {
         
         pauseText.enabled = false;
+        exit.gameObject.SetActive(false);
+        resume.gameObject.SetActive(false);
         Cursor.visible = false;
         controller = GetComponent<CharacterController>();
         destRotate = transform.rotation;
@@ -43,6 +48,7 @@ public class SimpleMove : MonoBehaviour
     void Update()
     {
 		Sprint ();
+        Sneak();
         //Quaternion actRotation = transform.rotation;
         //destRotation.x = actRotation.x + Input.GetAxis("MY") * rotationSpeed;
         //Vector3 view = destRotation;
@@ -52,6 +58,10 @@ public class SimpleMove : MonoBehaviour
             if (sprinting)
             {
                 moveDirection = moveDirection * (speed + sprintingSpeed);
+            }
+            else if(sneaking)
+            {
+                moveDirection = moveDirection * (speed/sneakSpeed);
             }
             else
             {
@@ -100,6 +110,8 @@ public class SimpleMove : MonoBehaviour
             {
                 Cursor.visible = true;
                 pauseText.enabled = true;
+                exit.gameObject.SetActive(true);
+                resume.gameObject.SetActive(true);
                 pause = true;
                 Time.timeScale = 0.0f;
                 //gameController.GetComponent<AudioSource>.pause
@@ -109,10 +121,7 @@ public class SimpleMove : MonoBehaviour
         else if (pause == true && Input.GetKeyDown(KeyCode.Escape))
         {
 
-            Cursor.visible = false;
-            pause = false;
-            pauseText.enabled = false;
-            Time.timeScale = 1.0f;
+            Resume();
 
         }
 
@@ -126,14 +135,14 @@ public class SimpleMove : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 sprinting = true;
-                MainCamera.transform.position += new Vector3(0,0.1F,0);
+                MainCamera.transform.position += new Vector3(0,0.05F,0);
                 AudioSource.PlayClipAtPoint(aud, transform.position, volume);
             }
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
 
                 sprinting = false;
-                MainCamera.transform.position += new Vector3(0, -0.1F, 0);
+                MainCamera.transform.position += new Vector3(0, -0.05F, 0);
                 delay = 0;
             }
         }
@@ -158,5 +167,17 @@ public class SimpleMove : MonoBehaviour
             }
         }
     }
+    public void Resume()
+    {
+
+        Time.timeScale = 1.0f;
+        Cursor.visible = false;
+        pause = false;
+        pauseText.enabled = false;
+        exit.gameObject.SetActive(false);
+        resume.gameObject.SetActive(false);
+        
+    }
+    
 
 }
