@@ -24,19 +24,23 @@ public class SimpleMove : MonoBehaviour
     public float delay = 0;
     public float volume = 0.7f;
     public Text pauseText;
-    public Button resume;
+    public Text resumeText;
     public Button exit;
     public GameObject MainCamera;
     public GameObject gameController;
 
-
+    public Text rota;
+    private float rotaF;
+    private string rotaS;
     // Use this for initialization
     void Start()
     {
+
         
+
         pauseText.enabled = false;
         exit.gameObject.SetActive(false);
-        resume.gameObject.SetActive(false);
+        resumeText.enabled = false;
         Cursor.visible = false;
         controller = GetComponent<CharacterController>();
         destRotate = transform.rotation;
@@ -47,7 +51,13 @@ public class SimpleMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Sprint ();
+        rotaF = transform.rotation.x;
+        rotaS = rotaF.ToString();
+        rota.text = rotaS;
+
+
+
+        Sprint ();
         Sneak();
         //Quaternion actRotation = transform.rotation;
         //destRotation.x = actRotation.x + Input.GetAxis("MY") * rotationSpeed;
@@ -111,7 +121,7 @@ public class SimpleMove : MonoBehaviour
                 Cursor.visible = true;
                 pauseText.enabled = true;
                 exit.gameObject.SetActive(true);
-                resume.gameObject.SetActive(true);
+                resumeText.enabled = true;
                 pause = true;
                 Time.timeScale = 0.0f;
                 //gameController.GetComponent<AudioSource>.pause
@@ -175,7 +185,7 @@ public class SimpleMove : MonoBehaviour
         pause = false;
         pauseText.enabled = false;
         exit.gameObject.SetActive(false);
-        resume.gameObject.SetActive(false);
+        resumeText.enabled = false;
         
     }
     
