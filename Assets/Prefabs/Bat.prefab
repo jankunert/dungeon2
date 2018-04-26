@@ -265,6 +265,8 @@ GameObject:
   - component: {fileID: 135701910152622750}
   - component: {fileID: 82541866684489888}
   - component: {fileID: 195264705007009562}
+  - component: {fileID: 114189496569998248}
+  - component: {fileID: 114568981574472004}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Enemy
@@ -319,7 +321,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1976395519230382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4122239262580552}
@@ -621,6 +623,34 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114189496569998248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1976395519230382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89b5395cebb240468cf289d38ffc6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldOfView: 240
+  playerDetected: 0
+--- !u!114 &114568981574472004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1976395519230382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac3d70580c61564c8c181303dff88f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  isShocked: 0
+  shockedTime: 0.5
+  eps: 1
 --- !u!135 &135701910152622750
 SphereCollider:
   m_ObjectHideFlags: 1
