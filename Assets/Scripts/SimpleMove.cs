@@ -14,7 +14,6 @@ public class SimpleMove : MonoBehaviour
     public float rotationSpeed = 1.0f;
     private Vector3 moveDirection = Vector3.zero;
     private Quaternion destRotate;
-    //private Vector3 destRotation;
     private bool pause;
     private CharacterController controller;
     //private Quaternion bordermax;

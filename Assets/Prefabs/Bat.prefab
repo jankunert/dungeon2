@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 195264705007009562}
   - component: {fileID: 114189496569998248}
   - component: {fileID: 114568981574472004}
+  - component: {fileID: 114949388382567536}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Enemy
@@ -320,8 +321,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1976395519230382}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 2, z: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 10, y: 2, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4122239262580552}
@@ -329,7 +330,7 @@ Transform:
   - {fileID: 4516320665846614}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4352541993770348
 Transform:
   m_ObjectHideFlags: 1
@@ -634,7 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89b5395cebb240468cf289d38ffc6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldOfView: 240
+  fieldOfView: 100
   playerDetected: 0
 --- !u!114 &114568981574472004
 MonoBehaviour:
@@ -651,6 +652,23 @@ MonoBehaviour:
   isShocked: 0
   shockedTime: 0.5
   eps: 1
+--- !u!114 &114949388382567536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1976395519230382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6c69995ff28ef4f8cfd3e55aeee508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageValue: 1
+  attackingSpeed: 4
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  waypointPauseTime: 2
 --- !u!135 &135701910152622750
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -734,7 +752,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.4
