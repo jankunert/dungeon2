@@ -16,8 +16,8 @@ public class SimpleMove : MonoBehaviour
     private Quaternion destRotate;
     private bool pause;
     private CharacterController controller;
-    //private Quaternion bordermax;
-    //private Quaternion bordermin;
+    private Quaternion bordermax;
+    private Quaternion bordermin;
     public AudioClip aud;
     public float steplength = 0.4f;
     public float delay = 0;
@@ -43,14 +43,14 @@ public class SimpleMove : MonoBehaviour
         Cursor.visible = false;
         controller = GetComponent<CharacterController>();
         destRotate = transform.rotation;
-        //bordermax = Quaternion.Euler(80,0,0);
-        //bordermin = Quaternion.Euler(-80,0,0);
+        bordermax = Quaternion.Euler(80,0,0);
+        bordermin = Quaternion.Euler(-80,0,0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        rotaF = transform.rotation.x;
+        rotaF = transform.localEulerAngles.x;
         rotaS = rotaF.ToString();
         rota.text = rotaS;
 
