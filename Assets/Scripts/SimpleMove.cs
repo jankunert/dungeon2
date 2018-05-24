@@ -50,7 +50,7 @@ public class SimpleMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rotaF = transform.localEulerAngles.x;
+        rotaF = transform.localEulerAngles.x*-1;
         rotaS = rotaF.ToString();
         rota.text = rotaS;
 
