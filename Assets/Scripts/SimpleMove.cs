@@ -43,14 +43,12 @@ public class SimpleMove : MonoBehaviour
         Cursor.visible = false;
         controller = GetComponent<CharacterController>();
         destRotate = transform.rotation;
-        bordermax = Quaternion.Euler(80,0,0);
-        bordermin = Quaternion.Euler(-80,0,0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        rotaF = transform.localEulerAngles.x*-1;
+        rotaF = transform.localEulerAngles.x;
         rotaS = rotaF.ToString();
         rota.text = rotaS;
 
@@ -58,9 +56,6 @@ public class SimpleMove : MonoBehaviour
 
         Sprint ();
         Sneak();
-        //Quaternion actRotation = transform.rotation;
-        //destRotation.x = actRotation.x + Input.GetAxis("MY") * rotationSpeed;
-        //Vector3 view = destRotation;
         if (pause == false)
         {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -68,9 +63,9 @@ public class SimpleMove : MonoBehaviour
             {
                 moveDirection = moveDirection * (speed + sprintingSpeed);
             }
-            else if(sneaking)
+            else if (sneaking)
             {
-                moveDirection = moveDirection * (speed/sneakSpeed);
+                moveDirection = moveDirection * (speed / sneakSpeed);
             }
             else
             {
@@ -79,9 +74,21 @@ public class SimpleMove : MonoBehaviour
 
             moveDirection = transform.TransformDirection(moveDirection);
             controller.SimpleMove(moveDirection);
-            destRotate.eulerAngles -= new Vector3(Input.GetAxis("MY") * rotationSpeed, 0, 0);
-            //destRotate.SetLookRotation(view);
-            destRotate.eulerAngles += new Vector3(0, Input.GetAxis("MouseX") * rotationSpeed, 0);
+            if ((rotaF >= 0 && rotaF <= 80) || 280 <= rotaF && rotaF <= 360)
+            { 
+
+                destRotate.eulerAngles -= new Vector3(Input.GetAxis("MY") * rotationSpeed, 0, 0);
+            }
+            else if(rotaF>80&&rotaF<120)
+            {
+                transform.rotation = Quaternion.Euler(79, 0, 0);
+                //destRotate.eulerAngles -= new Vector3(3, 0, 0);
+            }
+            else if(rotaF>200&&rotaF<270)
+            {
+                destRotate.eulerAngles -= new Vector3(3, 0, 0);
+            }
+                destRotate.eulerAngles += new Vector3(0, Input.GetAxis("MouseX") * rotationSpeed, 0);
 
 
             /*if (Input.GetKey(KeyCode.Q))
