@@ -81,12 +81,11 @@ public class SimpleMove : MonoBehaviour
             }
             else if(rotaF>80&&rotaF<120)
             {
-                transform.rotation = Quaternion.Euler(79, 0, 0);
-                //destRotate.eulerAngles -= new Vector3(3, 0, 0);
-            }
-            else if(rotaF>200&&rotaF<270)
-            {
                 destRotate.eulerAngles -= new Vector3(3, 0, 0);
+            }
+            else if(rotaF>200&&rotaF<280)
+            {
+                destRotate.eulerAngles += new Vector3(3, 0, 0);
             }
                 destRotate.eulerAngles += new Vector3(0, Input.GetAxis("MouseX") * rotationSpeed, 0);
 
