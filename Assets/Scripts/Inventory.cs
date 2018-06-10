@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour {
 
 		for(int i = 0; i< guiCount; i++)
 		{
-			guiItemImages[i].enabled = false;
+			//guiItemImages[i].enabled = false;
 			guiItemImages[i].GetComponentInChildren<Text>().text = "";
 		}
 

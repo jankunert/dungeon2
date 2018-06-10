@@ -15,6 +15,12 @@ public class SimpleMove : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private Quaternion destRotate;
     private bool pause;
+
+    public Image pauseImage;
+    private float FadeRate = 100000;
+    public float targetAlpha;
+
+
     private CharacterController controller;
     private Quaternion bordermax;
     private Quaternion bordermin;
@@ -34,13 +40,12 @@ public class SimpleMove : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        
-
+        var pcolor = pauseImage.color;
+        pcolor.a = 0.0f;
+        pauseImage.color = pcolor;
         pauseText.enabled = false;
         exit.gameObject.SetActive(false);
         resumeText.enabled = false;
-        Cursor.visible = false;
         controller = GetComponent<CharacterController>();
         destRotate = transform.rotation;
     }
@@ -48,12 +53,12 @@ public class SimpleMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //rotaF = pauseImage.color.a;
         rotaF = transform.localEulerAngles.x;
         rotaS = rotaF.ToString();
         rota.text = rotaS;
-
-
-
+        Cursor.lockState = CursorLockMode.Locked;
+        if(pause) Cursor.lockState = CursorLockMode.None;
         Sprint ();
         Sneak();
         if (pause == false)
@@ -90,18 +95,6 @@ public class SimpleMove : MonoBehaviour
                 destRotate.eulerAngles += new Vector3(0, Input.GetAxis("MouseX") * rotationSpeed, 0);
 
 
-            /*if (Input.GetKey(KeyCode.Q))
-            {
-                destRotate.eulerAngles -= new Vector3(0, rotationSpeed, 0);
-
-            }
-            if (Input.GetKey(KeyCode.E))
-            {
-                destRotate.eulerAngles += new Vector3(0, rotationSpeed, 0);
-
-
-            }*/
-
 
 
 
@@ -123,7 +116,10 @@ public class SimpleMove : MonoBehaviour
             delay += Time.deltaTime;
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Cursor.visible = true;
+                Color newColor = new Color(pauseImage.color.r, pauseImage.color.g, pauseImage.color.b, 0);
+                pauseImage.color = newColor;
+                StartCoroutine(FadeTo());
+                Cursor.lockState = CursorLockMode.None;
                 pauseText.enabled = true;
                 exit.gameObject.SetActive(true);
                 resumeText.enabled = true;
@@ -185,14 +181,27 @@ public class SimpleMove : MonoBehaviour
     public void Resume()
     {
 
+        Color newColor = new Color(0,0 ,0, targetAlpha);
+        pauseImage.color -= newColor;
+
+
         Time.timeScale = 1.0f;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         pause = false;
         pauseText.enabled = false;
         exit.gameObject.SetActive(false);
         resumeText.enabled = false;
         
     }
-    
 
+    IEnumerator FadeTo()
+    {
+        
+        for(float t = 0; t<targetAlpha*100;t++)
+        {
+            Color newColor = new Color(0, 0, 0, 0.01f);
+            pauseImage.color += newColor;
+            yield return new WaitForSecondsRealtime(1/FadeRate);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : HealthController {
 
@@ -53,7 +54,7 @@ public class PlayerHealth : HealthController {
 
 	void Restart()
 	{
-		Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(1);
 	}
 
 	void UpdateView()

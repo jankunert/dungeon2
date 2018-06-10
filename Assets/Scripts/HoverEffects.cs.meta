@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: e5d72f0bf1f21cd47b64a0cf023cf5c4
-timeCreated: 1525350678
-licenseType: Pro
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - teext: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - cross: {instanceID: 0}
+  - crosshair: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

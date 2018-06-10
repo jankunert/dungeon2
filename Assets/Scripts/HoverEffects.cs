@@ -4,60 +4,86 @@ using UnityEngine.UI;
 
 public class HoverEffects : MonoBehaviour {
 
-	public Texture2D standardCursor;
-	public Texture2D clickableCursor;
-	public string tooltipText;
-	private Vector2 hotSpot = Vector2.zero;
-	//private GUIText msgBox;	//GUIElements
-	private Text msgBox;		//uGUI
+    public Text teext;
 
+    public Camera cam;
+    public Transform cross;
+    public RawImage crosshair;
+    public float fadeRate = 30;
+
+
+    private Color green;
+    private Color white;
+    public bool lookingAt = false;
 	void Start()
 	{
-		//msgBox = GameObject.FindGameObjectWithTag("Tooltip").GetComponent<GUIText>();	//GUIElements
-		msgBox = GameObject.FindGameObjectWithTag("Tooltip").GetComponent<Text>();	//uGUI
-		msgBox.transform.position = Vector3.zero;
+        teext.enabled = false;
+        white = new Color(1, 1, 1, 1);
+        green = new Color(0.4348337f, 0.990566f, 0.3224012f, 1f);
+        crosshair.color = white;
 	}
 
-	void OnMouseEnter()
-	{
-		if (clickableCursor != null)
-			Cursor.SetCursor(clickableCursor,hotSpot,CursorMode.Auto);
 
-		msgBox.text = tooltipText;
-		//GUIElements -B
-		/*
-		Vector2 pos;
-		pos.x =	Input.mousePosition.x ;
-		pos.y =	Input.mousePosition.y + 20; // um Text etwas hoeher anzuzuzeigen.
-		msgBox.pixelOffset = pos;
-		*/
-		//GUIElements -E
+    void Update()
+    {
+        Vector3 pos = new Vector3(cross.position.x, cross.position.y, cross.position.z);
+        Ray ray = cam.ScreenPointToRay(pos);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.tag == ("Stone"))
+            {
+                teext.text = "Stone";
+                teext.enabled = true;
+                lookingAt = true;
+                StartCoroutine(FadeToGreen());
+                 
+            }
+            else if (hit.transform.tag == ("Key"))
+            {
+                teext.text = "Key";
+                teext.enabled = true;
+                lookingAt = true;
+                StartCoroutine(FadeToGreen());
 
-		//uGUI -B
-		Vector3 pos;
-		pos.x =	Input.mousePosition.x ;
-		pos.y =	Input.mousePosition.y + 20; // um Text etwas hoeher anzuzuzeigen
-		pos.z = 0;
-		msgBox.rectTransform.position = pos;
-		//uGUI -E
-	}
+            }
+            else if (hit.transform.tag == ("Bucket"))
+            {
+                teext.text = "Bucket";
+                teext.enabled = true;
+                lookingAt = true;
+                StartCoroutine(FadeToGreen());
 
-	void OnMouseExit()
-	{
-		ExitEffect();
-	}
+            }
+            else
+            {
+                lookingAt = false;
+                teext.enabled = false;
+                StartCoroutine(FadeToWhite());
+            }
+        }
+    }
 
-	void OnDestroy()
-	{
-		ExitEffect();
-	}
-
-	void ExitEffect()
-	{
-		if (standardCursor != null)
-			Cursor.SetCursor(standardCursor,hotSpot,CursorMode.Auto);
-
-		if (msgBox != null)
-			msgBox.text = "";
-	}
+    IEnumerator FadeToGreen()
+    {
+        for (float f = 0; f < 1; f = f + (1/fadeRate))
+        {
+            if (lookingAt) crosshair.color = Color.Lerp(white, green, f);
+            else {
+                StartCoroutine(FadeToWhite());
+                yield break; }
+            yield return new WaitForSeconds(1 / 10000);
+        }
+    }
+    IEnumerator FadeToWhite()
+    {
+        for (float f = 0; f < 1; f = f + (1 / fadeRate))
+        {
+            if (!lookingAt) crosshair.color = Color.Lerp(green, white, f);
+            else {
+                StartCoroutine(FadeToGreen());
+                yield break; }
+            yield return new WaitForSeconds(1 / 10000);
+        }
+    }
 }
